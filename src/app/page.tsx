@@ -1,3 +1,5 @@
+import ExtractTables from '@/components/tools/ExtractTables';
+import PdfToSearchable from '@/components/tools/PdfToSearchable';
 import PdfToPng from '@/components/tools/PdfToPng';
 // import MergePdfs from '@/components/tools/MergePdfs'; // Uncomment jika sudah dibuat
 import OcrFromImage from '@/components/tools/OcrFromImage';
@@ -16,6 +18,10 @@ export default function Home() {
       
       {/* Grid untuk semua tools */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ExtractTables />
+        <PdfToSearchable />
+        {/* Uncomment jika sudah dibuat */}
+        {/* <MergePdfs /> */}
         <PdfToPng />
         {/* <MergePdfs /> */}
         <OcrFromImage />

@@ -80,5 +80,47 @@ export const extractTextFromImage = async (
   return handleResponse<ApiResponse>(response);
 };
 
+// 15. Convert Scanned PDF to Searchable PDF
+export const convertPdfToSearchable = async (
+  file: File,
+  options?: {
+    language?: string;
+  }
+) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  if (options?.language) {
+    formData.append('language', options.language);
+  }
+
+  const response = await fetch(`${API_BASE_URL}/ocr/pdf-to-searchable`, {
+    method: 'POST',
+    body: formData,
+  });
+  return handleResponse<ApiResponse>(response);
+};
+
+// 16. Extract Tables from Image
+export const extractTablesFromImage = async (
+  file: File,
+  options?: {
+    format?: 'json' | 'csv' | 'excel';
+  }
+) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  if (options?.format) {
+    formData.append('format', options.format);
+  }
+
+  const response = await fetch(`${API_BASE_URL}/ocr/extract-tables`, {
+    method: 'POST',
+    body: formData,
+  });
+  return handleResponse<ApiResponse>(response);
+};
+
 // Tambahkan fungsi lain di sini mengikuti pola yang sama
 // Contoh: convertPdfToJpg, splitPdf, rotatePdf, dll.
