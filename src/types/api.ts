@@ -88,6 +88,42 @@ export interface ApiError {
   error: string;
 }
 
+// 15. Convert Scanned PDF to Searchable PDF
+export interface PdfToSearchableResponse extends BaseSuccessResponse {
+  total_pages: number;
+  language: string;
+  searchable: true;
+  ocr_summary: {
+    pages_processed: number;
+    avg_word_count: number;
+  };
+}
+
+// 16. Extract Tables from Image
+interface ExtractTablesSuccessFound extends BaseSuccessResponse {
+  table_count: number; // akan > 0
+  rows: number;
+  columns: number;
+  format: 'json' | 'csv' | 'excel';
+}
+
+interface ExtractTablesSuccessNotFound {
+  success: true;
+  message: string;
+  table_count: 0;
+}
+
+export type ExtractTablesResponse = ExtractTablesSuccessFound | ExtractTablesSuccessNotFound;
+
+// 18. Batch OCR Processing
+export interface BatchOcrResponse extends BaseSuccessResponse {
+  total_images: number;
+  successful: number;
+  failed: number;
+  engine: string;
+  language: string;
+}
+
 // Union type for all possible API responses
 export type ApiResponse =
   | PdfInfoResponse
@@ -100,4 +136,7 @@ export type ApiResponse =
   | WatermarkPdfResponse
   | CompressPdfResponse
   | OcrFromImageResponse
+  | PdfToSearchableResponse
+  | ExtractTablesResponse
+  | BatchOcrResponse
   | ApiError;
