@@ -115,6 +115,15 @@ interface ExtractTablesSuccessNotFound {
 
 export type ExtractTablesResponse = ExtractTablesSuccessFound | ExtractTablesSuccessNotFound;
 
+// 18. Batch OCR Processing
+export interface BatchOcrResponse extends BaseSuccessResponse {
+  total_images: number;
+  successful: number;
+  failed: number;
+  engine: string;
+  language: string;
+}
+
 // Union type for all possible API responses
 export type ApiResponse =
   | PdfInfoResponse
@@ -129,4 +138,5 @@ export type ApiResponse =
   | OcrFromImageResponse
   | PdfToSearchableResponse
   | ExtractTablesResponse
+  | BatchOcrResponse
   | ApiError;

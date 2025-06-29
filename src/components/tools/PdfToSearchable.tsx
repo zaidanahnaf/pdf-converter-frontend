@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent } from '../ui/card';
+import { Card, CardHeader, CardContent, CardTitle } from '../ui/card';
 import { ApiResponse, PdfToSearchableResponse } from '@/types/api';
 import { convertPdfToSearchable } from '@/lib/api';
 import Spinner from '../shared/Spinner';
 import ResultCard from '../shared/ResultCard';
+import { Search } from 'lucide-react'; // <-- IMPORT IKON
 
 const PdfToSearchable = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -31,8 +32,17 @@ const PdfToSearchable = () => {
   }
 
   return (
-    <Card>
-      <CardHeader>Make Scanned PDF Searchable</CardHeader>
+    // Tambahkan kelas `relative` untuk state loading nanti
+    <Card className="relative">
+      <CardHeader>
+        {/* STRUKTUR HEADER BARU YANG KONSISTEN */}
+        <div className="flex items-center gap-3">
+            <div className="bg-sky-600/20 p-2 rounded-lg">
+              <Search className="h-6 w-6 text-sky-400" />
+            </div>
+            <CardTitle>Make Scanned PDF Searchable</CardTitle>
+        </div>
+      </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -59,14 +69,14 @@ const PdfToSearchable = () => {
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
               placeholder="Default: eng"
-              className="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-sky-500"
             />
           </div>
 
           <button
             type="submit"
             disabled={isLoading || !file}
-            className="w-full flex justify-center items-center bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
+            className="w-full flex justify-center items-center bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? <Spinner /> : 'Make Searchable'}
           </button>

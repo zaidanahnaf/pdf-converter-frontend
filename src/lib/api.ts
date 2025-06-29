@@ -122,5 +122,34 @@ export const extractTablesFromImage = async (
   return handleResponse<ApiResponse>(response);
 };
 
+// 18. Batch OCR Processing
+export const processBatchOcr = async (
+  files: File[],
+  options?: {
+    engine?: string;
+    language?: string;
+  }
+) => {
+  const formData = new FormData();
+
+  // Loop dan append setiap file dengan key yang sama yaitu "files"
+  files.forEach(file => {
+    formData.append('files', file);
+  });
+
+  if (options?.engine) {
+    formData.append('engine', options.engine);
+  }
+  if (options?.language) {
+    formData.append('language', options.language);
+  }
+
+  const response = await fetch(`${API_BASE_URL}/ocr/batch-ocr`, {
+    method: 'POST',
+    body: formData,
+  });
+  return handleResponse<ApiResponse>(response);
+};
+
 // Tambahkan fungsi lain di sini mengikuti pola yang sama
 // Contoh: convertPdfToJpg, splitPdf, rotatePdf, dll.

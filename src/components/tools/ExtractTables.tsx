@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardContent } from '../ui/card';
 import { ApiResponse, ExtractTablesResponse } from '@/types/api';
 import { extractTablesFromImage } from '@/lib/api';
+import { Table, Search, Files } from 'lucide-react';
 import Spinner from '../shared/Spinner';
 import ResultCard from '../shared/ResultCard';
 
@@ -33,7 +34,14 @@ const ExtractTables = () => {
 
   return (
     <Card>
-      <CardHeader>Extract Tables from Image</CardHeader>
+      <CardHeader>
+        <div className="flex items-center gap-3">
+            <div className="bg-purple-600/20 p-2 rounded-lg">
+            <Table className="h-6 w-6 text-purple-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-white">Extract Tables from Image</h3>
+            </div>
+      </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
